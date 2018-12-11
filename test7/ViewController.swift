@@ -145,6 +145,14 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             
             
         }
+        
+        /*Timer.scheduledTimer( //TimerクラスのメソッドなのでTimerで宣言
+            timeInterval: 1.0, //処理を行う間隔の秒
+            target: self,  //指定した処理を記述するクラスのインスタンス
+            selector: #selector(self.locationManager(_:didUpdateLocations:)), //実行されるメソッド名
+            userInfo: nil, //selectorで指定したメソッドに渡す情報
+            repeats: true //処理を繰り返すか否か
+        )*/
     }
     
     // GPSから値を取得した際に呼び出されるメソッド.
@@ -160,8 +168,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         print("\(myLocation.latitude), \(myLocation.longitude)")
         
         // 縮尺.
-        let myLatDist : CLLocationDistance = 200
-        let myLonDist : CLLocationDistance = 200
+        let myLatDist : CLLocationDistance = 500
+        let myLonDist : CLLocationDistance = 500
         
         // Regionを作成.
         let myRegion: MKCoordinateRegion = MKCoordinateRegion(center: myLocation, latitudinalMeters: myLatDist, longitudinalMeters: myLonDist);
@@ -187,13 +195,15 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     
+    
+    
     // Regionが変更した時に呼び出されるメソッド.
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         print("regionDidChangeAnimated")
     }
     
     // 認証が変更された時に呼び出されるメソッド.
-    private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    private func mylocationManager2(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         switch status{
         case .authorizedWhenInUse:
             print("AuthorizedWhenInUse")
