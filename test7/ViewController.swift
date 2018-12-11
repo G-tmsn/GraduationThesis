@@ -160,8 +160,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         print("\(myLocation.latitude), \(myLocation.longitude)")
         
         // 縮尺.
-        let myLatDist : CLLocationDistance = 100
-        let myLonDist : CLLocationDistance = 100
+        let myLatDist : CLLocationDistance = 200
+        let myLonDist : CLLocationDistance = 200
         
         // Regionを作成.
         let myRegion: MKCoordinateRegion = MKCoordinateRegion(center: myLocation, latitudinalMeters: myLatDist, longitudinalMeters: myLonDist);
@@ -183,7 +183,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         // MapViewにピンを追加.
         myMapView.addAnnotation(myPin)
-        
         
     }
     
