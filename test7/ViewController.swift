@@ -77,9 +77,67 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         myMapView.userTrackingMode = MKUserTrackingMode.follow
 
         
+        
+        
+        /*
+        // 何度動いたら更新するか（デフォルトは1度）
+        myLocationManager.headingFilter = kCLHeadingFilterNone
+        
+        // デバイスのどの向きを北とするか（デフォルトは画面上部）
+        myLocationManager.headingOrientation = .portrait
+        
+        myLocationManager.startUpdatingHeading()
+         */
+        
+        /*Timer.scheduledTimer( //TimerクラスのメソッドなのでTimerで宣言
+            timeInterval: 1.0, //処理を行う間隔の秒
+            target: self,  //指定した処理を記述するクラスのインスタンス
+            selector: #selector(self.locationManager(_:didUpdateLocations:)), //実行されるメソッド名
+            userInfo: nil, //selectorで指定したメソッドに渡す情報
+            repeats: true //処理を繰り返すか否か
+        )*/
+    }
+    
+    // GPSから値を取得した際に呼び出されるメソッド.
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        print("didUpdateLocations")
+        
+        // 配列から現在座標を取得.
+        let myLocations: NSArray = locations as NSArray
+        let myLastLocation: CLLocation = myLocations.lastObject as! CLLocation
+        let myLocation:CLLocationCoordinate2D = myLastLocation.coordinate
+        
+        print("\(myLocation.latitude), \(myLocation.longitude)")
+        /*
+        // 縮尺.
+        let myLatDist : CLLocationDistance = 500
+        let myLonDist : CLLocationDistance = 500
+        
+        // Regionを作成.
+        let myRegion: MKCoordinateRegion = MKCoordinateRegion(center: myLocation, latitudinalMeters: myLatDist, longitudinalMeters: myLonDist);
+        
+        // MapViewに反映.
+        myMapView.setRegion(myRegion, animated: true)
+        
+        // ピンを生成.
+        let myPin: MKPointAnnotation = MKPointAnnotation()
+        
+        // 座標を設定.
+        myPin.coordinate = myLocation
+        
+        // タイトルを設定.
+        myPin.title = "現在地"
+        
+        // サブタイトルを設定.
+        myPin.subtitle = "  "
+        
+        // MapViewにピンを追加.
+        myMapView.addAnnotation(myPin)*/
+     
         // 出発点の緯度、経度を設定.
-        let myLatitude: CLLocationDegrees = 35.706
-        let myLongitude: CLLocationDegrees = 139.705
+        // let myLatitude: CLLocationDegrees = 35.706
+        // let myLongitude: CLLocationDegrees = 139.705
         
         // 目的地の緯度、経度を設定.
         let requestLatitude: CLLocationDegrees = 35.7134
@@ -87,7 +145,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         // 目的地の座標を指定.
         let requestCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(requestLatitude, requestLongitude)
-        let fromCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(myLatitude, myLongitude)
+        //let fromCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(myLatitude, myLongitude)
+        let fromCoordinate: CLLocationCoordinate2D = myLocation
         
         // PlaceMarkを生成して出発点、目的地の座標をセット.
         let fromPlace: MKPlacemark = MKPlacemark(coordinate: fromCoordinate, addressDictionary: nil)
@@ -151,64 +210,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             
         }
         
-        /*
-        // 何度動いたら更新するか（デフォルトは1度）
-        myLocationManager.headingFilter = kCLHeadingFilterNone
-        
-        // デバイスのどの向きを北とするか（デフォルトは画面上部）
-        myLocationManager.headingOrientation = .portrait
-        
-        myLocationManager.startUpdatingHeading()
-         */
-        
-        /*Timer.scheduledTimer( //TimerクラスのメソッドなのでTimerで宣言
-            timeInterval: 1.0, //処理を行う間隔の秒
-            target: self,  //指定した処理を記述するクラスのインスタンス
-            selector: #selector(self.locationManager(_:didUpdateLocations:)), //実行されるメソッド名
-            userInfo: nil, //selectorで指定したメソッドに渡す情報
-            repeats: true //処理を繰り返すか否か
-        )*/
     }
-    /*
-    // GPSから値を取得した際に呼び出されるメソッド.
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        print("didUpdateLocations")
-        
-        // 配列から現在座標を取得.
-        let myLocations: NSArray = locations as NSArray
-        let myLastLocation: CLLocation = myLocations.lastObject as! CLLocation
-        let myLocation:CLLocationCoordinate2D = myLastLocation.coordinate
-        
-        print("\(myLocation.latitude), \(myLocation.longitude)")
-        
-        // 縮尺.
-        let myLatDist : CLLocationDistance = 500
-        let myLonDist : CLLocationDistance = 500
-        
-        // Regionを作成.
-        let myRegion: MKCoordinateRegion = MKCoordinateRegion(center: myLocation, latitudinalMeters: myLatDist, longitudinalMeters: myLonDist);
-        
-        // MapViewに反映.
-        myMapView.setRegion(myRegion, animated: true)
-        
-        // ピンを生成.
-        let myPin: MKPointAnnotation = MKPointAnnotation()
-        
-        // 座標を設定.
-        myPin.coordinate = myLocation
-        
-        // タイトルを設定.
-        myPin.title = "現在地"
-        
-        // サブタイトルを設定.
-        myPin.subtitle = "  "
-        
-        // MapViewにピンを追加.
-        myMapView.addAnnotation(myPin)
-        
-    }
-    */
+ 
     
     /*
     private func myLocationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
