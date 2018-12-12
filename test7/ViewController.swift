@@ -71,7 +71,11 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         // MapViewに反映.
         myMapView.setRegion(myRegion, animated: true)
         
+        myMapView.setUserTrackingMode(MKUserTrackingMode.followWithHeading, animated: true)
         
+        //位置に追従する
+        myMapView.userTrackingMode = MKUserTrackingMode.follow
+
         
         // 出発点の緯度、経度を設定.
         let myLatitude: CLLocationDegrees = 35.706
@@ -144,7 +148,18 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             self.myMapView.addAnnotation(toPin)
             
             
+            
         }
+        
+        /*
+        // 何度動いたら更新するか（デフォルトは1度）
+        myLocationManager.headingFilter = kCLHeadingFilterNone
+        
+        // デバイスのどの向きを北とするか（デフォルトは画面上部）
+        myLocationManager.headingOrientation = .portrait
+        
+        myLocationManager.startUpdatingHeading()
+         */
         
         /*Timer.scheduledTimer( //TimerクラスのメソッドなのでTimerで宣言
             timeInterval: 1.0, //処理を行う間隔の秒
@@ -154,7 +169,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             repeats: true //処理を繰り返すか否か
         )*/
     }
-    
+    /*
     // GPSから値を取得した際に呼び出されるメソッド.
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
@@ -193,9 +208,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         myMapView.addAnnotation(myPin)
         
     }
+    */
     
-    
-    
+    /*
+    private func myLocationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        UITextField.text = "".appendingFormat("%.2f", newHeading.magneticHeading)
+    }
+ */
     
     // Regionが変更した時に呼び出されるメソッド.
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
@@ -203,7 +222,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     // 認証が変更された時に呼び出されるメソッド.
-    private func mylocationManager2(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    private func mylocationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         switch status{
         case .authorizedWhenInUse:
             print("AuthorizedWhenInUse")
