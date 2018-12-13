@@ -44,6 +44,18 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         // 位置情報の更新を開始.
         myLocationManager.startUpdatingLocation()
         
+        /*
+        // 真北を基準にしたヘディングを取得する位置情報サービスを開始する
+        myLocationManager.distanceFilter = 1000;
+        myLocationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+        myLocationManager.startUpdatingLocation()
+        
+        // ヘディングの更新を開始する
+        if (CLLocationManager.headingAvailable()) {
+            myLocationManager.headingFilter = 5;
+            myLocationManager.startUpdatingHeading()
+        }*/
+        
         // MapViewの生成.
         myMapView = MKMapView()
         
@@ -52,9 +64,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         // Delegateを設定.
         myMapView.delegate = self
-        
-        // 方向も示すように設定
-        // myMapView.setUserTrackingMode(MKUserTrackingMode.followWithHeading, animated: true)
         
         // MapViewをViewに追加.
         self.view.addSubview(myMapView)
@@ -163,9 +172,84 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
     }
  
-    // Regionが変更した時に呼び出されるメソッド.
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+    // Regionが変更した時に呼び出されるメソッド
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool, didUpdateLocations locations: [CLLocation]) {
         print("regionDidChangeAnimated")
+        
+        // 配列から現在座標を取得.
+        let myLocations: NSArray = locations as NSArray
+        let myLastLocation: CLLocation = myLocations.lastObject as! CLLocation
+        let myLocation:CLLocationCoordinate2D = myLastLocation.coordinate
+        
+        print("\(myLocation.latitude), \(myLocation.longitude)")
+        
+        // 目的地の緯度、経度を設定.
+        let requestLatitude: CLLocationDegrees = 35.7134
+        let requestLongitude: CLLocationDegrees = 139.7044
+        
+        // 目的地の座標を指定.
+        let requestCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(requestLatitude, requestLongitude)
+        //let fromCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(myLatitude, myLongitude)
+        let fromCoordinate: CLLocationCoordinate2D = myLocation
+        
+        // PlaceMarkを生成して出発点、目的地の座標をセット.
+        let fromPlace: MKPlacemark = MKPlacemark(coordinate: fromCoordinate, addressDictionary: nil)
+        let toPlace: MKPlacemark = MKPlacemark(coordinate: requestCoordinate, addressDictionary: nil)
+        
+        
+        // Itemを生成してPlaceMarkをセット.
+        let fromItem: MKMapItem = MKMapItem(placemark: fromPlace)
+        let toItem: MKMapItem = MKMapItem(placemark: toPlace)
+        
+        // MKDirectionsRequestを生成.
+        let myRequest: MKDirections.Request = MKDirections.Request()
+        
+        // 出発地のItemをセット.
+        myRequest.source = fromItem
+        
+        // 目的地のItemをセット.
+        myRequest.destination = toItem
+        
+        // 複数経路の検索を有効.
+        myRequest.requestsAlternateRoutes = true
+        
+        // 移動手段を徒歩に設定.
+        myRequest.transportType = MKDirectionsTransportType.walking
+        
+        // MKDirectionsを生成してRequestをセット.
+        let myDirections: MKDirections = MKDirections(request: myRequest)
+        
+        myDirections.calculate { (response, error) in
+            
+            // NSErrorを受け取ったか、ルートがない場合.
+            if error != nil || response!.routes.isEmpty {
+                return
+            }
+            
+            let route: MKRoute = response!.routes[0] as MKRoute
+            print("目的地までぇ \(route.distance)km")
+            print("所要時間 \(Int(route.expectedTravelTime/60))分")
+            
+            // mapViewにルートを描画.
+            self.myMapView.addOverlay(route.polyline)
+            
+            // ピンを生成.
+            // let fromPin: MKPointAnnotation = MKPointAnnotation()
+            let toPin: MKPointAnnotation = MKPointAnnotation()
+            
+            // 座標をセット.
+            // fromPin.coordinate = fromCoordinate
+            toPin.coordinate = requestCoordinate
+            
+            // titleをセット.
+            // fromPin.title = "出発地点"
+            toPin.title = "目的地"
+            
+            // mapViewに追加.
+            // self.myMapView.addAnnotation(fromPin)
+            self.myMapView.addAnnotation(toPin)
+            
+        }
     }
     
     // 認証が変更された時に呼び出されるメソッド.

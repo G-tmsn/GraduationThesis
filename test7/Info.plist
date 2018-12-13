@@ -43,5 +43,10 @@
 	</array>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>Use Location</string>
+    <key>UIRequiredDeviceCapabilities</key>
+    <array>
+        <string>magnetometer</string>
+        <string>location-services</string>
+    </array>
 </dict>
 </plist>
