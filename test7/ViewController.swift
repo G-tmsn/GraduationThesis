@@ -53,6 +53,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         // Delegateを設定.
         myMapView.delegate = self
         
+        // 方向も示すように設定
+        // myMapView.setUserTrackingMode(MKUserTrackingMode.followWithHeading, animated: true)
+        
         // MapViewをViewに追加.
         self.view.addSubview(myMapView)
         
@@ -68,34 +71,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         // Regionを作成.
         let myRegion: MKCoordinateRegion = MKCoordinateRegion(center: myCoordinate, latitudinalMeters: myLatDist, longitudinalMeters: myLonDist);
         
-        // MapViewに反映.
+        // MapViewに反映
         myMapView.setRegion(myRegion, animated: true)
-        
-        myMapView.setUserTrackingMode(MKUserTrackingMode.followWithHeading, animated: true)
         
         //位置に追従する
         myMapView.userTrackingMode = MKUserTrackingMode.follow
 
         
-        
-        
-        /*
-        // 何度動いたら更新するか（デフォルトは1度）
-        myLocationManager.headingFilter = kCLHeadingFilterNone
-        
-        // デバイスのどの向きを北とするか（デフォルトは画面上部）
-        myLocationManager.headingOrientation = .portrait
-        
-        myLocationManager.startUpdatingHeading()
-         */
-        
-        /*Timer.scheduledTimer( //TimerクラスのメソッドなのでTimerで宣言
-            timeInterval: 1.0, //処理を行う間隔の秒
-            target: self,  //指定した処理を記述するクラスのインスタンス
-            selector: #selector(self.locationManager(_:didUpdateLocations:)), //実行されるメソッド名
-            userInfo: nil, //selectorで指定したメソッドに渡す情報
-            repeats: true //処理を繰り返すか否か
-        )*/
     }
     
     // GPSから値を取得した際に呼び出されるメソッド.
@@ -109,35 +91,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         let myLocation:CLLocationCoordinate2D = myLastLocation.coordinate
         
         print("\(myLocation.latitude), \(myLocation.longitude)")
-        /*
-        // 縮尺.
-        let myLatDist : CLLocationDistance = 500
-        let myLonDist : CLLocationDistance = 500
-        
-        // Regionを作成.
-        let myRegion: MKCoordinateRegion = MKCoordinateRegion(center: myLocation, latitudinalMeters: myLatDist, longitudinalMeters: myLonDist);
-        
-        // MapViewに反映.
-        myMapView.setRegion(myRegion, animated: true)
-        
-        // ピンを生成.
-        let myPin: MKPointAnnotation = MKPointAnnotation()
-        
-        // 座標を設定.
-        myPin.coordinate = myLocation
-        
-        // タイトルを設定.
-        myPin.title = "現在地"
-        
-        // サブタイトルを設定.
-        myPin.subtitle = "  "
-        
-        // MapViewにピンを追加.
-        myMapView.addAnnotation(myPin)*/
-     
-        // 出発点の緯度、経度を設定.
-        // let myLatitude: CLLocationDegrees = 35.706
-        // let myLongitude: CLLocationDegrees = 139.705
         
         // 目的地の緯度、経度を設定.
         let requestLatitude: CLLocationDegrees = 35.7134
@@ -191,34 +144,25 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             self.myMapView.addOverlay(route.polyline)
             
             // ピンを生成.
-            let fromPin: MKPointAnnotation = MKPointAnnotation()
+            // let fromPin: MKPointAnnotation = MKPointAnnotation()
             let toPin: MKPointAnnotation = MKPointAnnotation()
             
             // 座標をセット.
-            fromPin.coordinate = fromCoordinate
+            // fromPin.coordinate = fromCoordinate
             toPin.coordinate = requestCoordinate
             
             // titleをセット.
-            fromPin.title = "出発地点"
+            // fromPin.title = "出発地点"
             toPin.title = "目的地"
             
             // mapViewに追加.
-            self.myMapView.addAnnotation(fromPin)
+            // self.myMapView.addAnnotation(fromPin)
             self.myMapView.addAnnotation(toPin)
-            
-            
             
         }
         
     }
  
-    
-    /*
-    private func myLocationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        UITextField.text = "".appendingFormat("%.2f", newHeading.magneticHeading)
-    }
- */
-    
     // Regionが変更した時に呼び出されるメソッド.
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         print("regionDidChangeAnimated")
