@@ -14,9 +14,14 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     var myMapView: MKMapView!
     var myLocationManager: CLLocationManager!
+    //var timer: Timer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // タイマーを使って繰り返し
+        /*timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector:  #selector(self.locationManager), userInfo: nil, repeats: true)
+        timer.fire()*/
         
         // LocationManagerの生成.
         myLocationManager = CLLocationManager()
@@ -77,11 +82,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
     }
     
-    /*func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        myMapView.camera.heading = newHeading.magneticHeading
-        myMapView.setCamera(myMapView.camera, animated: true)
-    }*/
-    
     //======================================================================================================
     
     // 配列から現在座標を取得
@@ -118,10 +118,19 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     var thereIsRoute: Bool = false
     var makingRouteNow: Bool = false
     
+    var route: MKRoute!
+    
     //======================================================================================================
     
+    /*override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        timer.invalidate()
+    }*/
+    
     // GPSから値を取得した際に呼び出されるメソッド.
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    @objc func locationManager(_ manager: CLLocationManager, /*timer: Timer, */didUpdateLocations locations: [CLLocation]) {
+        
+        while true {
         
         if(makingRouteNow == true){
             return
@@ -132,7 +141,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         // 既に生成しているルートを削除
         if(thereIsRoute == true){
-            self.myMapView.removeAnnotation(toPin)
+            self.myMapView.removeOverlay(self.route.polyline)
             thereIsRoute = false
             print("Remove Route.")
         }
@@ -187,12 +196,12 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 return
             }
             
-            let route: MKRoute = response!.routes[0] as MKRoute
-            print("目的地まで \(route.distance)km")
-            print("所要時間 \(Int(route.expectedTravelTime/60))分")
+            self.route = response!.routes[0] as MKRoute
+            print("目的地まで \(self.route.distance)km")
+            print("所要時間 \(Int(self.route.expectedTravelTime/60))分")
             
             // mapViewにルートを描画.
-            self.myMapView.addOverlay(route.polyline)
+            self.myMapView.addOverlay(self.route.polyline)
             
             // ピンを生成.
             // let fromPin: MKPointAnnotation = MKPointAnnotation()
@@ -213,22 +222,31 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             self.thereIsRoute = true
             print("madeAnnotation")
             self.makingRouteNow = false
+            
+            // ユーザーの方向を取得
+            var heading: CLHeading? { get {
+                return self.myLocationManager.heading
+                }
+            }/*
+            print(heading)
+            
+            if(self.thereIsRoute == true){
+                var steps: [MKRoute.Step?]? { get {
+                    return self.route!.steps
+                    }
+                }
+                print(steps?.count)
+                
+                self.myMapView.addOverlay(self.route.steps[1].polyline)
+            }*/
         }
-        
-        // ユーザーの方向を取得
-        var heading: CLHeading? { get {
-            return self.myLocationManager.heading
-            }
+            Thread.sleep(forTimeInterval: 3.0)
         }
-        print(heading)
-        
-        
-        
         
     }
     
     //======================================================================================================
- 
+ /*
     // Regionが変更した時に呼び出されるメソッド
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool, didUpdateLocations locations: [CLLocation]) {
         print("regionDidChangeAnimated")
@@ -315,7 +333,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             self.thereIsRoute = true
         }
     }
-    
+    */
     //======================================================================================================
     
     
@@ -345,10 +363,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         let routeRenderer: MKPolylineRenderer = MKPolylineRenderer(polyline: route)
         
         // ルートの線の太さ.
-        routeRenderer.lineWidth = 3.0
+        routeRenderer.lineWidth = 5.0
         
         // ルートの線の色.
-        routeRenderer.strokeColor = UIColor.red
+        routeRenderer.strokeColor = UIColor.init(displayP3Red: 0.2, green: 0.2, blue: 1, alpha: 0.8)
         return routeRenderer
     }
     
