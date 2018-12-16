@@ -14,14 +14,15 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     var myMapView: MKMapView!
     var myLocationManager: CLLocationManager!
-    //var timer: Timer!
+    var timer: Timer!
+    var count = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // タイマーを使って繰り返し
-        /*timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector:  #selector(self.locationManager), userInfo: nil, repeats: true)
-        timer.fire()*/
+        timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector:  #selector(self.misstakeDetecter(timer:)), userInfo: nil, repeats: true)
+        timer.fire()
         
         // LocationManagerの生成.
         myLocationManager = CLLocationManager()
@@ -122,19 +123,20 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     //======================================================================================================
     
-    /*override func viewWillDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         timer.invalidate()
-    }*/
+    }
     
     // GPSから値を取得した際に呼び出されるメソッド.
-    @objc func locationManager(_ manager: CLLocationManager, /*timer: Timer, */didUpdateLocations locations: [CLLocation]) {
-        
-        while true {
+    func locationManager(_ manager: CLLocationManager/*, didUpdateLocations locations: [CLLocation]*/) {
         
         if(makingRouteNow == true){
             return
         }
+        
+        self.myLocationManager.stopUpdatingLocation()
+        self.myLocationManager.startUpdatingLocation()
         
         print("didUpdateLocations")
         makingRouteNow = true
@@ -147,8 +149,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
         
         // 配列から現在座標を取得.
-        myLocations = locations as NSArray
-        myLastLocation = myLocations.lastObject as? CLLocation
+        myLastLocation = myLocationManager.location
+        // myLocations = locations as NSArray
+        // myLastLocation = myLocations.lastObject as? CLLocation
         myLocation = myLastLocation.coordinate
         
         print("\(myLocation.latitude), \(myLocation.longitude)")
@@ -240,12 +243,28 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 self.myMapView.addOverlay(self.route.steps[1].polyline)
             }*/
         }
-            Thread.sleep(forTimeInterval: 3.0)
-        }
         
     }
     
     //======================================================================================================
+    struct Point {
+        var x:Double = 0
+        var y:Double = 0
+    }
+    
+    //中継メソッド
+    @objc func misstakeDetecter(timer: Timer) {
+        
+        count += 1
+        if(count == 1){
+            return
+        }
+        
+        locationManager(myLocationManager)
+    }
+    
+    //==================================================================================================
+    
  /*
     // Regionが変更した時に呼び出されるメソッド
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool, didUpdateLocations locations: [CLLocation]) {
