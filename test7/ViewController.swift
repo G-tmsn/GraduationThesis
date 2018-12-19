@@ -270,7 +270,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 if(self.angleChanged(previousAngle: self.lastAngle, nowAngle: self.nowAngle)){
                 // if(self.lastAngle != self.nowAngle){
                     print("You are wrong")
-                    self.playSound(name: "sound1")
+                    self.playSound(name: "sound2")
                 } else {
                     print("You are right")
                 }
@@ -318,7 +318,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         // 2つの角度の差を計算
         let diff: Int = (previousAngle - nowAngle) % 360
         
-        if(diff < 30){
+        print("diff is \(Int(diff))")
+        
+        if(diff < 30 && diff > -30){
             return false
         } else {
             return true
