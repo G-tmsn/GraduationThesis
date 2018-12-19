@@ -318,7 +318,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         // 2つの角度の差を計算
         let diff: Int = (previousAngle - nowAngle) % 360
         
-        print("diff is \(Int(diff))")
+        // print("diff is \(Int(diff))")
         
         if(diff < 30 && diff > -30){
             return false
