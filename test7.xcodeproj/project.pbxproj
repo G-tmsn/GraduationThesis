@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E23898421CB7394004C0A88 /* backSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5E23898321CB7393004C0A88 /* backSound.mp3 */; };
+		5E23898621CB739D004C0A88 /* sound1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5E23898521CB739D004C0A88 /* sound1.mp3 */; };
 		5EA48EA421BFC4FD00540609 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA48EA321BFC4FD00540609 /* AppDelegate.swift */; };
 		5EA48EA621BFC4FD00540609 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA48EA521BFC4FD00540609 /* ViewController.swift */; };
 		5EA48EA921BFC4FD00540609 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EA48EA721BFC4FD00540609 /* Main.storyboard */; };
@@ -14,7 +16,6 @@
 		5EA48EAE21BFC50000540609 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EA48EAC21BFC50000540609 /* LaunchScreen.storyboard */; };
 		5EA48EB921BFC50000540609 /* test7Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA48EB821BFC50000540609 /* test7Tests.swift */; };
 		5EA48EC421BFC50000540609 /* test7UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA48EC321BFC50000540609 /* test7UITests.swift */; };
-		5ECBE1DD21C9FC3800BE92F9 /* sound2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5ECBE1DC21C9FC3800BE92F9 /* sound2.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5E23898321CB7393004C0A88 /* backSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = backSound.mp3; sourceTree = SOURCE_ROOT; };
+		5E23898521CB739D004C0A88 /* sound1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound1.mp3; sourceTree = SOURCE_ROOT; };
 		5EA48EA021BFC4FD00540609 /* test7.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test7.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EA48EA321BFC4FD00540609 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EA48EA521BFC4FD00540609 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -48,7 +51,6 @@
 		5EA48EBF21BFC50000540609 /* test7UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = test7UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EA48EC321BFC50000540609 /* test7UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test7UITests.swift; sourceTree = "<group>"; };
 		5EA48EC521BFC50000540609 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5ECBE1DC21C9FC3800BE92F9 /* sound2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sound2.wav; path = ../../../../Desktop/sound2.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +101,8 @@
 		5EA48EA221BFC4FD00540609 /* test7 */ = {
 			isa = PBXGroup;
 			children = (
-				5ECBE1DC21C9FC3800BE92F9 /* sound2.wav */,
+				5E23898521CB739D004C0A88 /* sound1.mp3 */,
+				5E23898321CB7393004C0A88 /* backSound.mp3 */,
 				5EA48EA321BFC4FD00540609 /* AppDelegate.swift */,
 				5EA48EA521BFC4FD00540609 /* ViewController.swift */,
 				5EA48EA721BFC4FD00540609 /* Main.storyboard */,
@@ -232,10 +235,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E23898621CB739D004C0A88 /* sound1.mp3 in Resources */,
 				5EA48EAE21BFC50000540609 /* LaunchScreen.storyboard in Resources */,
 				5EA48EAB21BFC50000540609 /* Assets.xcassets in Resources */,
-				5ECBE1DD21C9FC3800BE92F9 /* sound2.wav in Resources */,
 				5EA48EA921BFC4FD00540609 /* Main.storyboard in Resources */,
+				5E23898421CB7394004C0A88 /* backSound.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

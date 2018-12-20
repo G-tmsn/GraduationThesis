@@ -66,7 +66,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         self.view.addSubview(myMapView)
         
         // 中心点の緯度経度.
-        let myLat: CLLocationDegrees = 37.506804
+        let myLat: CLLocationDegrees = 35.506804
         let myLon: CLLocationDegrees = 139.930531
         let myCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(myLat, myLon) as CLLocationCoordinate2D
         
@@ -270,7 +270,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 if(self.angleChanged(previousAngle: self.lastAngle, nowAngle: self.nowAngle)){
                 // if(self.lastAngle != self.nowAngle){
                     print("You are wrong")
-                    self.playSound(name: "sound2")
+                    self.playSound(name: "sound1")
                 } else {
                     print("You are right")
                 }
@@ -286,6 +286,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         count += 1
         if(count == 1){
+            
+            // 音楽を流し始める
+            self.playSound(name: "backSound")
+            
             return
         }
         
@@ -373,7 +377,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
 // 音楽再生のための拡張クラス
 extension ViewController: AVAudioPlayerDelegate {
     func playSound(name: String) {
-        guard let path = Bundle.main.path(forResource: name, ofType: "wav") else {
+        guard let path = Bundle.main.path(forResource: name, ofType: "mp3") else {
             print("音源ファイルが見つかりません")
             return
         }
