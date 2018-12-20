@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5E23898421CB7394004C0A88 /* backSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5E23898321CB7393004C0A88 /* backSound.mp3 */; };
 		5E23898621CB739D004C0A88 /* sound1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5E23898521CB739D004C0A88 /* sound1.mp3 */; };
+		5E23898821CB7DFD004C0A88 /* backSound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5E23898721CB7DFD004C0A88 /* backSound.caf */; };
+		5E23898A21CB7E0A004C0A88 /* sound1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5E23898921CB7E0A004C0A88 /* sound1.caf */; };
 		5EA48EA421BFC4FD00540609 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA48EA321BFC4FD00540609 /* AppDelegate.swift */; };
 		5EA48EA621BFC4FD00540609 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA48EA521BFC4FD00540609 /* ViewController.swift */; };
 		5EA48EA921BFC4FD00540609 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EA48EA721BFC4FD00540609 /* Main.storyboard */; };
@@ -38,6 +40,8 @@
 /* Begin PBXFileReference section */
 		5E23898321CB7393004C0A88 /* backSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = backSound.mp3; sourceTree = SOURCE_ROOT; };
 		5E23898521CB739D004C0A88 /* sound1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound1.mp3; sourceTree = SOURCE_ROOT; };
+		5E23898721CB7DFD004C0A88 /* backSound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = backSound.caf; sourceTree = SOURCE_ROOT; };
+		5E23898921CB7E0A004C0A88 /* sound1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound1.caf; sourceTree = SOURCE_ROOT; };
 		5EA48EA021BFC4FD00540609 /* test7.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test7.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EA48EA321BFC4FD00540609 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EA48EA521BFC4FD00540609 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +105,8 @@
 		5EA48EA221BFC4FD00540609 /* test7 */ = {
 			isa = PBXGroup;
 			children = (
+				5E23898921CB7E0A004C0A88 /* sound1.caf */,
+				5E23898721CB7DFD004C0A88 /* backSound.caf */,
 				5E23898521CB739D004C0A88 /* sound1.mp3 */,
 				5E23898321CB7393004C0A88 /* backSound.mp3 */,
 				5EA48EA321BFC4FD00540609 /* AppDelegate.swift */,
@@ -239,7 +245,9 @@
 				5EA48EAE21BFC50000540609 /* LaunchScreen.storyboard in Resources */,
 				5EA48EAB21BFC50000540609 /* Assets.xcassets in Resources */,
 				5EA48EA921BFC4FD00540609 /* Main.storyboard in Resources */,
+				5E23898A21CB7E0A004C0A88 /* sound1.caf in Resources */,
 				5E23898421CB7394004C0A88 /* backSound.mp3 in Resources */,
+				5E23898821CB7DFD004C0A88 /* backSound.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

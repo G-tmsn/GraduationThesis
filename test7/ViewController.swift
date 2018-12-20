@@ -268,9 +268,11 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 
                 // 角度が大きく変わっていたら音楽を流す
                 if(self.angleChanged(previousAngle: self.lastAngle, nowAngle: self.nowAngle)){
-                // if(self.lastAngle != self.nowAngle){
+                    
                     print("You are wrong")
+                    
                     self.playSound(name: "sound1")
+                    
                 } else {
                     print("You are right")
                 }
@@ -377,7 +379,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
 // 音楽再生のための拡張クラス
 extension ViewController: AVAudioPlayerDelegate {
     func playSound(name: String) {
-        guard let path = Bundle.main.path(forResource: name, ofType: "mp3") else {
+        guard let path = Bundle.main.path(forResource: name, ofType: "caf") else {
             print("音源ファイルが見つかりません")
             return
         }
@@ -389,9 +391,15 @@ extension ViewController: AVAudioPlayerDelegate {
             // AVAudioPlayerのデリゲートをセット
             audioPlayer.delegate = self
             
+            // 音楽が再生中だったら
+            /*if AVAudioSession.sharedInstance().isOtherAudioPlaying {
+                try! AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.ambient, mode: AVAudioSession.Mode.default, options: AVAudioSession.CategoryOptions.defaultToSpeaker)
+            }*/
+            
             // 音声の再生
             audioPlayer.play()
         } catch {
         }
     }
+    
 }
