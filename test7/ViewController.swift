@@ -131,8 +131,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     var nowAngle: Int!
     var nowTravelTime: Int! = 9999
     var lastTravelTime: Int! = 9999
-    var diff:Int!
-    var expectedTime:Int!
+    var diff: Int!
+    var expectedTime: Int!
+    var myDest: Double!
     
     //======================================================================================================
     
@@ -217,6 +218,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             self.route = response!.routes[0] as MKRoute
             print("目的地まで \(self.route.distance)km")
             print("所要時間 \(Int(self.route.expectedTravelTime/60))分")
+            
+            // 所要時間を取得
             self.lastTravelTime = self.nowTravelTime
             self.nowTravelTime = Int(self.route.expectedTravelTime/10)
             
@@ -272,11 +275,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 if(self.lastAngle == nil){
                     self.lastAngle = self.nowAngle
                 }
-                // print(self.lastAngle)
-                // print(self.nowAngle)
+                self.myDest = self.distance(current: (la: self.myLocation.latitude, lo: self.myLocation.longitude), target: (la: self.myTarget.latitude, lo: self.myTarget.longitude))
                 
                 // 角度が大きく変わっていたら警告音楽を流す
-                if(self.userIsWrong(previousAngle: self.lastAngle, nowAngle: self.nowAngle)){
+                if(self.userIsWrong(previousAngle: self.lastAngle, nowAngle: self.nowAngle, dest: self.myDest)){
                     
                     print("You are wrong")
                     
@@ -327,8 +329,28 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     
+    // 緯度経度から距離を計算
+    func distance(current: (la: Double, lo: Double), target: (la: Double, lo: Double)) -> Double {
+        
+        // 緯度経度をラジアンに変換
+        let currentLa   = current.la * Double.pi / 180
+        let currentLo   = current.lo * Double.pi / 180
+        let targetLa    = target.la * Double.pi / 180
+        let targetLo    = target.lo * Double.pi / 180
+        
+        // 赤道半径
+        let equatorRadius = 6378137.0;
+        
+        // 算出
+        let averageLat = (currentLa - targetLa) / 2
+        let averageLon = (currentLo - targetLo) / 2
+        let distance = equatorRadius * 2 * asin(sqrt(pow(sin(averageLat), 2) + cos(currentLa) * cos(targetLa) * pow(sin(averageLon), 2)))
+        return distance
+    }
+    
+    
     // ユーザーが間違っている事を判定するメソッド
-    func userIsWrong(previousAngle: Int, nowAngle: Int) -> Bool {
+    func userIsWrong(previousAngle: Int, nowAngle: Int, dest: Double) -> Bool {
         
         // 2つの角度の差を計算
         diff = (previousAngle - nowAngle) % 360
@@ -336,6 +358,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         // 合っていたら
         if((diff < 30 && diff > -30) && expectedTime >= 0){
+            return false
+        } else if(dest < 50){
             return false
         } else {
             return true
