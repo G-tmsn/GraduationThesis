@@ -15,9 +15,12 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     var myMapView: MKMapView!
     var myLocationManager: CLLocationManager!
-    var audioPlayer: AVAudioPlayer!
+    var musicPlayer: AVAudioPlayer!
+    var alertPlayer: AVAudioPlayer!
     var timer: Timer!
     var count = 0
+    let music: Int = 0
+    let alert: Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -271,7 +274,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                     
                     print("You are wrong")
                     
-                    self.playSound(name: "sound1")
+                    self.playSound(name: "sound1",num: self.alert)
                     
                 } else {
                     print("You are right")
@@ -290,7 +293,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         if(count == 1){
             
             // 音楽を流し始める
-            self.playSound(name: "backSound")
+            self.playSound(name: "backSound", num: music)
             
             return
         }
@@ -378,27 +381,37 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
 
 // 音楽再生のための拡張クラス
 extension ViewController: AVAudioPlayerDelegate {
-    func playSound(name: String) {
+    func playSound(name: String, num: Int) {
         guard let path = Bundle.main.path(forResource: name, ofType: "caf") else {
             print("音源ファイルが見つかりません")
             return
         }
         
         do {
-            // AVAudioPlayerのインスタンス化
-            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
+            if(num == 0){
+                // AVAudioPlayerのインスタンス化
+                musicPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
             
-            // AVAudioPlayerのデリゲートをセット
-            audioPlayer.delegate = self
+                // AVAudioPlayerのデリゲートをセット
+                musicPlayer.delegate = self
+                
+                // 音声の再生
+                musicPlayer.play()
+
+            } else {
+                // AVAudioPlayerのインスタンス化
+                alertPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
+                
+                // AVAudioPlayerのデリゲートをセット
+                alertPlayer.delegate = self
+                
+                // 音声の再生
+                alertPlayer.play()
+
+            }
             
-            // 音楽が再生中だったら
-            /*if AVAudioSession.sharedInstance().isOtherAudioPlaying {
-                try! AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.ambient, mode: AVAudioSession.Mode.default, options: AVAudioSession.CategoryOptions.defaultToSpeaker)
-            }*/
-            
-            // 音声の再生
-            audioPlayer.play()
         } catch {
+            
         }
     }
     
