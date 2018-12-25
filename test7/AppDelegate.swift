@@ -50,5 +50,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }*/
+    
+    // アプリ起動中にスリープしないようにする設定
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        UIApplication.shared.isIdleTimerDisabled = true
+        return true
+    }
 }
 

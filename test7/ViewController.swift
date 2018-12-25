@@ -26,7 +26,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         super.viewDidLoad()
         
         // タイマーを使って繰り返し
-        timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector:  #selector(self.misstakeDetecter(timer:)), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector:  #selector(self.misstakeDetecter(timer:)), userInfo: nil, repeats: true)
         timer.fire()
         
         // LocationManagerの生成.
@@ -129,6 +129,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     var myTarget: CLLocationCoordinate2D!
     var lastAngle: Int!
     var nowAngle: Int!
+    var nowTravelTime: Int! = 9999
+    var lastTravelTime: Int! = 9999
+    var diff:Int!
+    var expectedTime:Int!
     
     //======================================================================================================
     
@@ -213,6 +217,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             self.route = response!.routes[0] as MKRoute
             print("目的地まで \(self.route.distance)km")
             print("所要時間 \(Int(self.route.expectedTravelTime/60))分")
+            self.lastTravelTime = self.nowTravelTime
+            self.nowTravelTime = Int(self.route.expectedTravelTime/10)
             
             // mapViewにルートを描画.
             self.myMapView.addOverlay(self.route.polyline)
@@ -269,8 +275,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 // print(self.lastAngle)
                 // print(self.nowAngle)
                 
-                // 角度が大きく変わっていたら音楽を流す
-                if(self.angleChanged(previousAngle: self.lastAngle, nowAngle: self.nowAngle)){
+                // 角度が大きく変わっていたら警告音楽を流す
+                if(self.userIsWrong(previousAngle: self.lastAngle, nowAngle: self.nowAngle)){
                     
                     print("You are wrong")
                     
@@ -321,15 +327,15 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     
-    // 角度の差を計算するメソッド
-    func angleChanged(previousAngle: Int, nowAngle: Int) -> Bool {
+    // ユーザーが間違っている事を判定するメソッド
+    func userIsWrong(previousAngle: Int, nowAngle: Int) -> Bool {
         
         // 2つの角度の差を計算
-        let diff: Int = (previousAngle - nowAngle) % 360
+        diff = (previousAngle - nowAngle) % 360
+        expectedTime = lastTravelTime - nowTravelTime
         
-        // print("diff is \(Int(diff))")
-        
-        if(diff < 30 && diff > -30){
+        // 合っていたら
+        if((diff < 30 && diff > -30) && expectedTime >= 0){
             return false
         } else {
             return true
