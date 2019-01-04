@@ -98,6 +98,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     // 目的地の緯度、経度を設定
     var requestLatitude: CLLocationDegrees!
     var requestLongitude: CLLocationDegrees!
+    var fromLatitude: CLLocationDegrees!
+    var fromLongitude: CLLocationDegrees!
     
     // 目的地の座標を指定.
     var requestCoordinate: CLLocationCoordinate2D!
@@ -173,12 +175,16 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         // 目的地の緯度、経度を設定.
         requestLatitude = 35.7134
         requestLongitude = 139.7044
-        // requestLatitude = 37.7758
-        // requestLongitude = -122.4264
+        /*
+        requestLatitude = 35.7095
+        requestLongitude = 139.7021
+        fromLatitude = 35.7071
+        fromLongitude = 139.6991
+ */
         
         // 目的地の座標を指定.
         requestCoordinate = CLLocationCoordinate2DMake(requestLatitude, requestLongitude)
-        //let fromCoordinate = CLLocationCoordinate2DMake(myLatitude, myLongitude)
+        // fromCoordinate = CLLocationCoordinate2DMake(fromLatitude, fromLongitude)
         fromCoordinate = myLocation
         
         // PlaceMarkを生成して出発点、目的地の座標をセット.
@@ -446,3 +452,19 @@ extension ViewController: AVAudioPlayerDelegate {
     }
     
 }
+
+/*
+ 経路メモ
+高橋管楽器->大久保北公園(6point,7jam,479m,6min)
+大久保北公園->外山小学校(6point,6jam,482m,6min)
+グレッグ->喜久寿司1(6point,6jam,486m,6min)
+喜久寿司2->新宿労基署(6point,6jam,486m,6min)
+
+高橋管楽器(35,7029,139,7062)
+大久保北公園(35,7037,139,7042)
+戸山小学校(35,7040,139,7018)
+グレッグ(35,7046,139,7007)
+着久寿司1(35,7069,139,6990)
+着久寿司2(35,7071,139,6991)
+労基署(35,7095,139,7021)
+ */
