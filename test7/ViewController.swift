@@ -365,7 +365,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         // 合っていたら
         if((diff < 30 && diff > -30) && expectedTime >= 0){
             return false
-        } else if(dest < 50){
+        } else if(dest < 20){
             return false
         } else {
             return true
@@ -451,6 +451,8 @@ extension ViewController: AVAudioPlayerDelegate {
         }
     }
     
+    // ===============================================================================================
+
 }
 
 /*
