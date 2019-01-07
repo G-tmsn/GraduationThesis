@@ -173,8 +173,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         print("\(myLocation.latitude), \(myLocation.longitude)")
         
         // 目的地の緯度、経度を設定.
-        requestLatitude = 35.7134
-        requestLongitude = 139.7044
+        requestLatitude = 35.7095
+        requestLongitude = 139.7021
         /*
         requestLatitude = 35.7095
         requestLongitude = 139.7021
