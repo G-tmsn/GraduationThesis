@@ -283,9 +283,16 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 
                 self.myDest = self.distance(current: (la: self.myLocation.latitude, lo: self.myLocation.longitude), target: (la: self.myTarget.latitude, lo: self.myTarget.longitude))
                 
+                if(self.route.steps.count == 1){
+                    let myNormalLabel: UILabel = UILabel(frame: CGRect(x: 25, y: 30, width: 200, height: 150))
+                    myNormalLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+                    myNormalLabel.text = "fin"
+                    self.view.addSubview(myNormalLabel)
+                }
+                
                 // 目的地に到着していた時の判定
                 if(self.reachedGoal(goalDest: self.myDest, stepNum: self.route.steps.count)){
-                    self.playSound(name: "arert0", num: 1)
+                    self.playSound(name: "arert0", num: self.alert)
                 }
             }
         }
