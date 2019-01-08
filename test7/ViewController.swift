@@ -173,8 +173,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         print("\(myLocation.latitude), \(myLocation.longitude)")
         
         // 目的地の緯度、経度を設定.
-        requestLatitude = 35.7045
-        requestLongitude = 139.7007
+        requestLatitude = 35.7095
+        requestLongitude = 139.7021
         /*
         requestLatitude = 35.7095
         requestLongitude = 139.7021
@@ -283,7 +283,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 
                 self.myDest = self.distance(current: (la: self.myLocation.latitude, lo: self.myLocation.longitude), target: (la: self.myTarget.latitude, lo: self.myTarget.longitude))
                 
-                if(self.route.steps.count == 1){
+                if(self.route.steps.count == 2){
                     let myNormalLabel: UILabel = UILabel(frame: CGRect(x: 25, y: 30, width: 200, height: 150))
                     myNormalLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
                     myNormalLabel.text = "fin"
@@ -364,9 +364,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         expectedTime = lastTravelTime - nowTravelTime
         
         // 合っていたら
-        if((diff < 30 && diff > -30) && expectedTime >= 0){
+        if((diff < 40 && diff > -40) && expectedTime >= 0){
             return false
-        } else if(dest < 20){
+        } else if(dest < 30){
             return false
         } else {
             return true
@@ -375,7 +375,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     // 目的地に着いたことを判定するメソッド
     func reachedGoal(goalDest: Double, stepNum: Int) -> Bool {
-        if(goalDest < 20 && stepNum == 1){
+        if(goalDest < 20 && stepNum == 2){
             return true
         } else {
             return false
