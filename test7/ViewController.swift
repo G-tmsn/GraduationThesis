@@ -135,7 +135,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     var lastTravelTime: Int! = 9999
     var diff: Int!
     var expectedTime: Int!
-    var myDest: Double!
+    var myDest: Double! = 99999
     
     //======================================================================================================
     
@@ -173,8 +173,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         print("\(myLocation.latitude), \(myLocation.longitude)")
         
         // 目的地の緯度、経度を設定.
-        requestLatitude = 35.7095
-        requestLongitude = 139.7021
+        requestLatitude = 35.7045
+        requestLongitude = 139.7007
         /*
         requestLatitude = 35.7095
         requestLongitude = 139.7021
@@ -257,18 +257,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 return self.myLocationManager.heading
                 }
             }
-            /*
-            print(heading)
-            
-            if(self.thereIsRoute == true){
-                var steps: [MKRoute.Step?]? { get {
-                    return self.route!.steps
-                    }
-                }
-                print(steps?.count)
-                
-                self.myMapView.addOverlay(self.route.steps[1].polyline)
-            }*/
             
             // １つ目の曲がり角のと緯度軽度を取得
             self.myTarget = self.route.steps[1].polyline.coordinate
@@ -281,7 +269,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 if(self.lastAngle == nil){
                     self.lastAngle = self.nowAngle
                 }
-                self.myDest = self.distance(current: (la: self.myLocation.latitude, lo: self.myLocation.longitude), target: (la: self.myTarget.latitude, lo: self.myTarget.longitude))
                 
                 // 角度が大きく変わっていたら警告音楽を流す
                 if(self.userIsWrong(previousAngle: self.lastAngle, nowAngle: self.nowAngle, dest: self.myDest)){
@@ -292,6 +279,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                     
                 } else {
                     print("You are right")
+                }
+                
+                self.myDest = self.distance(current: (la: self.myLocation.latitude, lo: self.myLocation.longitude), target: (la: self.myTarget.latitude, lo: self.myTarget.longitude))
+                
+                // 目的地に到着していた時の判定
+                if(self.reachedGoal(goalDest: self.myDest, stepNum: self.route.steps.count)){
+                    self.playSound(name: "arert0", num: 1)
                 }
             }
         }
@@ -307,7 +301,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         if(count == 1){
             
             // 音楽を流し始める
-            self.playSound(name: "backSound", num: music)
+            // self.playSound(name: "backSound", num: music)
             
             return
         }
@@ -369,6 +363,15 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             return false
         } else {
             return true
+        }
+    }
+    
+    // 目的地に着いたことを判定するメソッド
+    func reachedGoal(goalDest: Double, stepNum: Int) -> Bool {
+        if(goalDest < 20 && stepNum == 1){
+            return true
+        } else {
+            return false
         }
     }
     

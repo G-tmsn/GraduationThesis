@@ -18,6 +18,7 @@
 		5EA48EAE21BFC50000540609 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EA48EAC21BFC50000540609 /* LaunchScreen.storyboard */; };
 		5EA48EB921BFC50000540609 /* test7Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA48EB821BFC50000540609 /* test7Tests.swift */; };
 		5EA48EC421BFC50000540609 /* test7UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA48EC321BFC50000540609 /* test7UITests.swift */; };
+		5EFEED4021E4941D00B78CDE /* arert0.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5EFEED3F21E4941D00B78CDE /* arert0.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		5EA48EBF21BFC50000540609 /* test7UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = test7UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EA48EC321BFC50000540609 /* test7UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test7UITests.swift; sourceTree = "<group>"; };
 		5EA48EC521BFC50000540609 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5EFEED3F21E4941D00B78CDE /* arert0.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = arert0.mp3; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				5E23898521CB739D004C0A88 /* sound1.mp3 */,
 				5E23898321CB7393004C0A88 /* backSound.mp3 */,
 				5EA48EA321BFC4FD00540609 /* AppDelegate.swift */,
+				5EFEED3F21E4941D00B78CDE /* arert0.mp3 */,
 				5EA48EA521BFC4FD00540609 /* ViewController.swift */,
 				5EA48EA721BFC4FD00540609 /* Main.storyboard */,
 				5EA48EAA21BFC50000540609 /* Assets.xcassets */,
@@ -247,6 +250,7 @@
 				5EA48EA921BFC4FD00540609 /* Main.storyboard in Resources */,
 				5E23898A21CB7E0A004C0A88 /* sound1.caf in Resources */,
 				5E23898421CB7394004C0A88 /* backSound.mp3 in Resources */,
+				5EFEED4021E4941D00B78CDE /* arert0.mp3 in Resources */,
 				5E23898821CB7DFD004C0A88 /* backSound.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
